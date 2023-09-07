@@ -2,7 +2,6 @@
 #include <string>
 #include <ctype.h>
 #include <math.h>
-#include <fstream>
 
 using namespace std;
 
@@ -127,6 +126,7 @@ int main() {
 
 		switch (checkbox) {
 		case 1: {
+
 			cout << "Enter the number: "; cin >> num;
 			cout << "Enter the base: "; cin >> base;
 			cout << "Answer: " << convert_to_base(num, base) << endl;
@@ -134,6 +134,7 @@ int main() {
 			break;
 		}
 		case 2: {
+			
 			cout << "Enter the number: "; cin >> num;
 			cout << "Enter the base: "; cin >> base;
 			cout << "Answer: " << convert_to_decimal(num, base) << endl;
