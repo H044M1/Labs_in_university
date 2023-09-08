@@ -142,42 +142,45 @@ void menu() {
 
 		cin >> checkbox;
 
-		switch (checkbox) {
-		case 1: {
-			cout << "Enter the number: "; cin >> num;
-			cout << "Enter the base: "; cin >> base;
-			cout << "Answer: " << convert_to_base(num, base) << endl;
-			break;
-		}
-		case 2: {
-			cout << "Enter the number: "; cin >> num;
-			cout << "Enter the base: "; cin >> base;
-			cout << "Answer: " << convert_to_decimal(num, base) << endl;
-			break;
-		}
-		case 3: {
-			cout << "Enter the first number: "; cin >> num;
-			cout << "Enter the second number: "; cin >> num2;
-			cout << "Enter the base: "; cin >> base;
-			cout << "Answer: " << base_sum(num, num2, base) << endl;
-			break;
-		}
-		case 4: {
-			cout << "Enter the first number: "; cin >> num;
-			cout << "Enter the second number: "; cin >> num2;
-			cout << "Enter the base: "; cin >> base;
-			cout << "Answer: " << base_sub(num, num2, base) << endl;
-			break;
-		}
-		case 5: {
-			cout << "Enter the first number: "; cin >> num;
-			cout << "Enter the second number: "; cin >> num2;
-			cout << "Enter the base: "; cin >> base;
-			cout << "Answer: " << base_multiplication(num, num2, base) << endl;
-			break;
-		}
-		}
-		cout << "What next? Enter the number menu: ";
+		if (checkbox == 0) { return; }
+		else {
+			switch (checkbox) {
+			case 1: {
+				cout << "Enter the number: "; cin >> num;
+				cout << "Enter the base: "; cin >> base;
+				cout << "Answer: " << convert_to_base(num, base) << endl;
+				break;
+			}
+			case 2: {
+				cout << "Enter the number: "; cin >> num;
+				cout << "Enter the base: "; cin >> base;
+				cout << "Answer: " << convert_to_decimal(num, base) << endl;
+				break;
+			}
+			case 3: {
+				cout << "Enter the first number: "; cin >> num;
+				cout << "Enter the second number: "; cin >> num2;
+				cout << "Enter the base: "; cin >> base;
+				cout << "Answer: " << base_sum(num, num2, base) << endl;
+				break;
+			}
+			case 4: {
+				cout << "Enter the first number: "; cin >> num;
+				cout << "Enter the second number: "; cin >> num2;
+				cout << "Enter the base: "; cin >> base;
+				cout << "Answer: " << base_sub(num, num2, base) << endl;
+				break;
+			}
+			case 5: {
+				cout << "Enter the first number: "; cin >> num;
+				cout << "Enter the second number: "; cin >> num2;
+				cout << "Enter the base: "; cin >> base;
+				cout << "Answer: " << base_multiplication(num, num2, base) << endl;
+				break;
+			}
+			}
+			cout << "What next? Enter the number menu: ";
+		} 
 	} while (checkbox != 0);
 }
 
