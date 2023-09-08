@@ -123,7 +123,7 @@ string base_sub(string num1, string num2, int base) {
     long double number1 = convert_to_decimal(num1, base);
     long double number2 = convert_to_decimal(num2, base);
     long double sub_result = number1 - number2;
-    return (sub_result < 0) ? "-" + convert_to_base(to_string(-sub_result), base) : convert_to_base(to_string(sub_result), base);
+    return (sub_result < 0) ? "-" + convert_to_base(to_string(abs(sub_result)), base) : convert_to_base(to_string(sub_result), base);
 }
 
 void menu() {
