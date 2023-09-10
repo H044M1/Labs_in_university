@@ -98,7 +98,6 @@ long double convert_to_decimal(string num, int base) {
 	string second_part_num;
 	double result_second_part = 0.0;
 	if (num.find("-") < num.size()) {
-
 		flag_minus = true;
 		num.erase(0, 1);
 	}
@@ -158,7 +157,6 @@ void menu() {
 	cout << "4 - base sub" << endl;
 	cout << "5 - base multiplication" << endl;
 	cout << "0 - leave" << endl;
-
 	do {
 		cin >> checkbox;
 		if (checkbox == 0) { return; }
