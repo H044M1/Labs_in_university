@@ -219,7 +219,7 @@ bytes_number decimal_to_byte(string num) {
 }
 
 int main() {
-	cout << decimal_to_byte("123.5").hex_num << endl;
-	cout << normalize_number("123.5").num << endl;
+	//cout << decimal_to_byte("123.5").hex_num << endl;
+	//cout << normalize_number("123.5").num << endl;
 	return 0;
 }
