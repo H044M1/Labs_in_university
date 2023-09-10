@@ -3,7 +3,6 @@
 #include <ctype.h>
 #include <math.h>
 
-
 using namespace std;
 
 string second_part(string num);
@@ -14,7 +13,6 @@ long double convert_to_decimal(string num, int base);
 string base_sum(string num1, string num2, int base);
 string base_multiplication(string num1, string num2, int base);
 string base_sub(string num1, string num2, int base);
-void menu();
 
 struct Number {
 	string num;
@@ -219,7 +217,7 @@ bytes_number decimal_to_byte(string num) {
 }
 
 int main() {
-	//cout << decimal_to_byte("123.5").hex_num << endl;
-	//cout << normalize_number("123.5").num << endl;
+	// cout << decimal_to_byte("123.5").hex_num << endl;
+	// cout << normalize_number("123.5").num << endl;
 	return 0;
 }
