@@ -178,15 +178,15 @@ Number normalize_number(string num) {
 }
 
 bytes_number decimal_to_byte(string num) {
+	string bin_num;
+	bytes_number result;
+	string fourbyte,eightbyte,decimal_num,hex_num;
 	long double nums = abs(stod(num));
 	num = to_string(nums);
 	string base_num = convert_to_base(num, 2);
 	string normalize_num = normalize_number(num).num;
 	string exponent = normalize_number(num).exponent;
 	string offset = convert_to_base(to_string(stoi(exponent) + 1023), 2);
-	string bin_num;
-	bytes_number result;
-	string fourbyte,eightbyte,decimal_num,hex_num;
 	if (num.find("-") < num.size()) {
 		bin_num = "0" + offset + normalize_num.erase(0,2);
 	}
