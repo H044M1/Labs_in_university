@@ -16,7 +16,6 @@ string base_sub(string num1, string num2, int base);
 void menu();
 
 string second_part(string num) {
-
 	string result = "0";
 	for (int i = num.find("."); i < num.size(); i++) {
 		result += num[i];
@@ -25,7 +24,6 @@ string second_part(string num) {
 }
 
 string second_part_to_base(long double num, int base) {
-
 	string result;
 	string first;
 	string digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -42,7 +40,6 @@ string second_part_to_base(long double num, int base) {
 }
 
 string convert_to_base(string num, int base) {
-
 	bool flag = false, flag_minus = false;
 	string result;
 	long double second_part_num;
@@ -78,7 +75,6 @@ string convert_to_base(string num, int base) {
 }
 
 long double convert_second_part_to_decimal(string num, int base) {
-
 	int j = -1;
 	long double result = 0.0;
 	for (int i = num.find(".") + 1; i < num.size(); i++) {
@@ -91,25 +87,22 @@ long double convert_second_part_to_decimal(string num, int base) {
 		}
 		j--;
 	}
+
 	return result;
 }
 
 long double convert_to_decimal(string num, int base) {
-
 	bool flag_minus = false;
 	long double result = 0.0;
 	int j = 0;
 	string second_part_num;
 	double result_second_part = 0.0;
-
 	if (num.find("-") < num.size()) {
 
 		flag_minus = true;
 		num.erase(0, 1);
 	}
-
 	int start = num.size() - 1;
-
 	if (num.find(".") < num.size()) {
 		start = num.find(".") - 1;
 		second_part_num = second_part(num);
@@ -117,7 +110,6 @@ long double convert_to_decimal(string num, int base) {
 	}
 	for (int i = start; i >= 0; i--) {
 		int digit = num[j];
-
 		if (isdigit(digit)) {
 			result += (digit - '0') * pow(base, i);
 		}
@@ -156,11 +148,9 @@ string base_sub(string num1, string num2, int base) {
 }
 
 void menu() {
-
 	int checkbox;
 	string num, num2;
 	int base;
-
 	cout << "What do you want?" << endl;
 	cout << "1 - convert to base" << endl;
 	cout << "2 - convert to decimal" << endl;
@@ -170,9 +160,7 @@ void menu() {
 	cout << "0 - leave" << endl;
 
 	do {
-
 		cin >> checkbox;
-
 		if (checkbox == 0) { return; }
 		else {
 			switch (checkbox) {
