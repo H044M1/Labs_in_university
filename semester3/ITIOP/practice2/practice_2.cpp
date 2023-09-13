@@ -10,9 +10,7 @@ string second_part_to_base(long double num, int base);
 string convert_to_base(string num, int base);
 long double convert_second_part_to_decimal(string num, int base);
 long double convert_to_decimal(string num, int base);
-string base_sum(string num1, string num2, int base);
-string base_multiplication(string num1, string num2, int base);
-string base_sub(string num1, string num2, int base);
+long double byte_to_decimal(string num);
 
 struct Number {
 	string num;
@@ -42,11 +40,37 @@ string second_part_to_base(long double num, int base) {
 		for (int i = 0; i < to_string(num).find("."); i++) {
 			first += to_string(num)[i];
 		}
-		result += digits[stoi(first)];
-		num = num - stoi(first);
+		result += digits[stod(first)];
+		num = num - stod(first);
 		first = "";
 	}
 	return result;
+}
+
+string hex_to_binary(string hex) {
+	string binary = "";
+	for (char c : hex) {
+        int num;
+        if (c >= '0' && c <= '9') {
+            num = c - '0';
+        } else if (c >= 'A' && c <= 'F') {
+            num = c - 'A' + 10;
+        } else if (c >= 'a' && c <= 'f') {
+            num = c - 'a' + 10;
+        } else {
+            return "";
+        }
+        string binaryDigit = "";
+        while (num > 0) {
+            binaryDigit = to_string(num % 2) + binaryDigit;
+            num /= 2;
+        }
+        while (binaryDigit.length() < 4) {
+            binaryDigit = "0" + binaryDigit;
+        }
+        binary += binaryDigit;
+    }
+    return binary;
 }
 
 string convert_to_base(string num, int base) {
@@ -65,7 +89,7 @@ string convert_to_base(string num, int base) {
 		second_part_num = stod(second_part(num));
 		result_base = second_part_to_base(second_part_num, base);
 	}
-	first_num = stoi(num);
+	first_num = stod(num);
 	while (first_num > 0) {
 		result = digits[first_num % base] + result;
 		first_num = first_num / base;
@@ -136,28 +160,9 @@ long double convert_to_decimal(string num, int base) {
 	return result;
 }
 
-string base_sum(string num1, string num2, int base) {
-	long double number1 = convert_to_decimal(num1, base);
-	long double number2 = convert_to_decimal(num2, base);
-	long double sum_result = number1 + number2;
-	return convert_to_base(to_string(sum_result), base);
-}
-string base_multiplication(string num1, string num2, int base) {
-	long double number1 = convert_to_decimal(num1, base);
-	long double number2 = convert_to_decimal(num2, base);
-	long double sum_result = number1 * number2;
-	return convert_to_base(to_string(sum_result), base);
-}
-
-string base_sub(string num1, string num2, int base) {
-	long double number1 = convert_to_decimal(num1, base);
-	long double number2 = convert_to_decimal(num2, base);
-	long double sub_result = number1 - number2;
-	return (sub_result < 0) ? "-" + convert_to_base(to_string(abs(sub_result)), base) : convert_to_base(to_string(sub_result), base);
-}
-
 Number normalize_number(string num) {
 	Number result;
+	num = to_string(abs(stod(num)));
 	if (num.find(".") < num.size()) {
 		string bin_num = convert_to_base(num, 2);
 		int dotpos = bin_num.find(".");
@@ -179,17 +184,15 @@ bytes_number decimal_to_byte(string num) {
 	string bin_num;
 	bytes_number result;
 	string fourbyte,eightbyte,decimal_num,hex_num;
-	long double nums = abs(stod(num));
-	num = to_string(nums);
-	string base_num = convert_to_base(num, 2);
+	string base_num = convert_to_base(to_string(abs(stod(num))), 2);
 	string normalize_num = normalize_number(num).num;
 	string exponent = normalize_number(num).exponent;
 	string offset = convert_to_base(to_string(stoi(exponent) + 1023), 2);
 	if (num.find("-") < num.size()) {
-		bin_num = "0" + offset + normalize_num.erase(0,2);
+		bin_num = "1" + offset + normalize_num.erase(0,2);
 	}
 	else {
-		bin_num = "1" + offset + normalize_num.erase(0,2);
+		bin_num = "0" + offset + normalize_num.erase(0,2);
 	}
 	while(bin_num.size() % 4 != 0){
 		bin_num += "0";
@@ -216,8 +219,51 @@ bytes_number decimal_to_byte(string num) {
 	return result;
 }
 
+long double byte_to_decimal(string num){
+	string binary_string, sing_bit, exponent_bits, offset_bits;
+	long double result;
+	long double offset;
+	int exponent;
+	while(num.size() != 16){
+		num += "0";
+	}
+	binary_string = hex_to_binary(num);
+	while(binary_string.size() != 64){
+		binary_string = '0' + binary_string;	
+	}
+	sing_bit = binary_string[0];
+	exponent_bits = binary_string.substr(1, 11);
+	offset_bits = binary_string.erase(0,12);
+	exponent = convert_to_decimal(exponent_bits, 2) - 1023;
+	offset = 1.0;
+	for(int i = 0; i < 52; i++){
+		offset += stod(string(1, offset_bits[i])) * pow(2, -(i + 1));
+    }
+	result = pow(-1 , stod(sing_bit)) * pow(2, exponent) * convert_to_decimal("1."+ offset_bits, 2);
+	return result;
+}
+
 int main() {
-	// cout << decimal_to_byte("123.5").hex_num << endl;
-	// cout << normalize_number("123.5").num << endl;
+	string num1 = "-116.375"; 
+	string num2 = "379.938";
+	string num3 = "-276.438";
+	string num4 = "115.617";
+	bytes_number result = decimal_to_byte(num1);
+	cout << result.hex_num << " " << result.eightbyte << " " << result.fourbyte << endl;	
+	// result =  decimal_to_byte(num2);
+	// cout << result.hex_num << " " << result.eightbyte << " " << result.fourbyte << endl;
+	// result =  decimal_to_byte(num3);
+	// cout << result.hex_num << " " << result.eightbyte << " " << result.fourbyte << endl;
+	// result =  decimal_to_byte(num4);
+	// cout << result.hex_num << " " << result.eightbyte << " " << result.fourbyte << endl;
+	cout << "|.....................................................................|" << endl;
+	string hex_num1 = "C30BF000";
+	string hex_num2 = "43F37000";
+	string hex_num3 = "C06F558000000000";
+	string hex_num4 = "4070B88000000000";
+	cout << byte_to_decimal(hex_num1) << endl;
+	cout << byte_to_decimal(hex_num2) << endl;
+	cout << byte_to_decimal(hex_num3) << endl;
+	cout << byte_to_decimal(hex_num4) << endl;
 	return 0;
 }
