@@ -21,10 +21,10 @@ struct bytes_number {
 
 string second_part(string num);
 string second_part_to_base(long double num, int base);
+string hex_to_binary(string hex);
 string convert_to_base(string num, int base);
 long double convert_second_part_to_decimal(string num, int base);
 long double convert_to_decimal(string num, int base);
-long double byte_to_decimal(string num);
 Number normalize_number(string num, int byte_types);
 bytes_number decimal_to_byte_four(string num);
 bytes_number decimal_to_byte_eight(string num);
@@ -361,6 +361,7 @@ long double byte_to_decimal(string num) {
            convert_to_decimal("1." + offset_bits, 2);
   return result;
 }
+
 long double byte_to_decimal_four(string num) {
   string binary_string, sing_bit, exponent_bits, offset_bits;
   long double result;
