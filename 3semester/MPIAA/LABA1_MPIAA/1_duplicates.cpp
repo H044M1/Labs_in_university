@@ -8,7 +8,6 @@
 #include <numeric>
 #include <random>
 
-
 using namespace std;
 using namespace std::chrono;
 
@@ -66,14 +65,13 @@ vector<int> fast_get_duplicates(const vector<int> &data) {
   return duplicates;
 }
 
-vector<int> shuffled_sequence(int size)
-{
-    vector<int> result(size);
-    iota(result.begin(), result.end(), 0);
-    random_device rd;
-    mt19937 rng(rd());
-    shuffle(result.begin(), result.end(), rng);
-    return result;
+vector<int> shuffled_sequence(int size) {
+  vector<int> result(size);
+  iota(result.begin(), result.end(), 0);
+  random_device rd;
+  mt19937 rng(rd());
+  shuffle(result.begin(), result.end(), rng);
+  return result;
 }
 
 template <class T> std::vector<T> sorted(const typename std::vector<T> &data) {
@@ -130,82 +128,77 @@ TEST_CASE("Single duplicated elem") {
   CHECK(sorted(get_duplicates(data)) == std::vector<int>{4});
 }
 
-int main()
-{
-    int result = Catch::Session().run();
+int main() {
+  int result = Catch::Session().run();
 
-    double time = 0.0;
-    double time_stop = 0.2;
-    int size_multiplicator = 10;
-    int size = 10;
-    while (time < time_stop)
-    {
-        cout << "Time for has_duplicates, N = " << size << endl;
-        const auto data = shuffled_sequence(size);
+  double time = 0.0;
+  double time_stop = 0.2;
+  int size_multiplicator = 10;
+  int size = 10;
+  while (time < time_stop) {
+    cout << "Time for has_duplicates, N = " << size << endl;
+    const auto data = shuffled_sequence(size);
 
-        auto t1 = steady_clock::now();
-        bool isdup = has_duplicates(data);
-        auto t2 = steady_clock::now();
-        time = duration<double>(t2 - t1).count();
-        cout << "isdup? " << isdup << endl;
-        cout << "Time: " << time << endl;
-        cout << "---------------------------------------------" << endl;
-        size *= size_multiplicator;
-    }
+    auto t1 = steady_clock::now();
+    bool isdup = has_duplicates(data);
+    auto t2 = steady_clock::now();
+    time = duration<double>(t2 - t1).count();
+    cout << "isdup? " << isdup << endl;
+    cout << "Time: " << time << endl;
+    cout << "---------------------------------------------" << endl;
+    size *= size_multiplicator;
+  }
 
-    time = 0.0;
-    size = 10;
-    
-    while (time < time_stop)
-    {
-        cout << "Time for get_duplicates, N = " << size << endl;
-        const auto data = shuffled_sequence(size);
+  time = 0.0;
+  size = 10;
 
-        auto t1 = steady_clock::now();
-        vector<int> dups = get_duplicates(data);
-        auto t2 = steady_clock::now();
-        time = duration<double>(t2 - t1).count();
+  while (time < time_stop) {
+    cout << "Time for get_duplicates, N = " << size << endl;
+    const auto data = shuffled_sequence(size);
 
-        cout << "Time: " << time << endl;
-        cout << "---------------------------------------------" << endl;
-        size *= size_multiplicator;
-    }
+    auto t1 = steady_clock::now();
+    vector<int> dups = get_duplicates(data);
+    auto t2 = steady_clock::now();
+    time = duration<double>(t2 - t1).count();
 
-    time = 0.0;
-    size = 10;
+    cout << "Time: " << time << endl;
+    cout << "---------------------------------------------" << endl;
+    size *= size_multiplicator;
+  }
 
-    while (time < time_stop)
-    {
-        cout << "Time for fast_has_duplicates, N = " << size << endl;
-        const auto data = shuffled_sequence(size);
+  time = 0.0;
+  size = 10;
 
-        auto t1 = steady_clock::now();
-        bool isdup = fast_has_duplicates(data);
-        auto t2 = steady_clock::now();
-        time = duration<double>(t2 - t1).count();
-        cout << "isdup? " << isdup << endl;
-        cout << "Time: " << time << endl;
-        cout << "---------------------------------------------" << endl;
-        size *= size_multiplicator;
-    }
+  while (time < time_stop) {
+    cout << "Time for fast_has_duplicates, N = " << size << endl;
+    const auto data = shuffled_sequence(size);
 
-    time = 0.0;
-    size = 10;
+    auto t1 = steady_clock::now();
+    bool isdup = fast_has_duplicates(data);
+    auto t2 = steady_clock::now();
+    time = duration<double>(t2 - t1).count();
+    cout << "isdup? " << isdup << endl;
+    cout << "Time: " << time << endl;
+    cout << "---------------------------------------------" << endl;
+    size *= size_multiplicator;
+  }
 
-    while (time < time_stop)
-    {
-        cout << "Time for fast_get_duplicates, N = " << size << endl;
-        const auto data = shuffled_sequence(size);
+  time = 0.0;
+  size = 10;
 
-        auto t1 = steady_clock::now();
-        vector<int> dups = fast_get_duplicates(data);
-        auto t2 = steady_clock::now();
-        time = duration<double>(t2 - t1).count();
+  while (time < time_stop) {
+    cout << "Time for fast_get_duplicates, N = " << size << endl;
+    const auto data = shuffled_sequence(size);
 
-        cout << "Time: " << time << endl;
-        cout << "---------------------------------------------" << endl;
-        size *= size_multiplicator;
-    }
+    auto t1 = steady_clock::now();
+    vector<int> dups = fast_get_duplicates(data);
+    auto t2 = steady_clock::now();
+    time = duration<double>(t2 - t1).count();
 
-    return result;
+    cout << "Time: " << time << endl;
+    cout << "---------------------------------------------" << endl;
+    size *= size_multiplicator;
+  }
+
+  return result;
 }
