@@ -11,7 +11,7 @@ int main() {
 
   double time1 = 0.0;
   double time2 = 0.0;
-  double time_stop = 1;
+  double time_stop = 0.6;
   int size_multiplicator = 10;
   int n = 10;
   while (time1 < time_stop && time2 < time_stop) {

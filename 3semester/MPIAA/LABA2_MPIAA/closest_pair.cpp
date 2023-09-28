@@ -37,7 +37,7 @@ pair<Point, Point> closestPair(const std::vector<Point> &points) {
 }
 
 pair<Point, Point> closestPairBetween(vector<Point> &PLeft,
-                                      vector<Point> &PRight, double d) {
+                                      vector<Point> &PRight, double d){
   vector<Point> PStripe;
   double Xm = (PLeft.back().x + PRight.front().x) / 2.0;
 
