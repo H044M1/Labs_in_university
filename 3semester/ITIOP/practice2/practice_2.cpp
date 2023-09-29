@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cctype>
 #include "struct.h"
+#include <stdio.h>
 
 using namespace std;
 
@@ -19,8 +20,8 @@ long double convert_to_decimal(string num, int base);
 Number normalize_number(string num, int byte_types);
 bytes_number decimal_to_byte_four(string num);
 bytes_number decimal_to_byte_eight(string num);
-long double byte_to_decimal(string num);
-long double byte_to_decimal_four(string num);
+double byte_to_decimal(string num);
+double byte_to_decimal_four(string num);
 void task();
 
 int main() {
@@ -263,9 +264,9 @@ bytes_number decimal_to_byte_eight(string num) {
   return result;
 }
 
-long double byte_to_decimal(string num) {
+double byte_to_decimal(string num) {
   string binary_string, sing_bit, exponent_bits, offset_bits;
-  long double result;
+  double result;
   long double offset;
   int exponent;
 
@@ -286,9 +287,9 @@ long double byte_to_decimal(string num) {
   return result;
 }
 
-long double byte_to_decimal_four(string num) {
+double byte_to_decimal_four(string num) {
   string binary_string, sing_bit, exponent_bits, offset_bits;
-  long double result;
+  double result;
   long double offset;
   int exponent;
 
@@ -308,6 +309,7 @@ long double byte_to_decimal_four(string num) {
 
   result = pow(-1, stod(sing_bit)) * pow(2, exponent) *
            convert_to_decimal("1." + offset_bits, 2);
+
   return result;
 }
 
@@ -343,14 +345,17 @@ void task() {
        << endl;
   string hex_num1 = "C39E8800";
   string hex_num2 = "43F37000";
-  cout << byte_to_decimal_four(hex_num1) << endl;
-  cout << byte_to_decimal_four(hex_num2) << endl;
+  printf("%.4lf",byte_to_decimal_four(hex_num1));
+  cout << endl;
+  printf("%.3lf",byte_to_decimal_four(hex_num2));
+  cout << endl;
   cout << "|...............................FROM 8 "
           "bytes......................................|"
        << endl;
   string hex_num3 = "405AC90000000000";
   string hex_num4 = "4070B88000000000";
 
-  cout << byte_to_decimal(hex_num3) << endl;
-  cout << byte_to_decimal(hex_num4) << endl;
+  printf("%.6lf", byte_to_decimal(hex_num3)); 
+  cout << endl;
+  printf("%.5lf", byte_to_decimal(hex_num4)); 
 }
