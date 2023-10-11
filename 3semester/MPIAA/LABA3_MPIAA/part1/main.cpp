@@ -21,8 +21,9 @@ int main() {
     double time1 = 0.0;
     double time2 = 0.0;
     double time_stop = 0.6;
-    int size_multiplicator = 2;
-    int n = 5;
+    int size = 3;
+    int n = 3;
+    string temp;
     while (time1 < time_stop && time2 < time_stop) {
         string fixedString(n, 'F');
         uniform_int_distribution<int> distribution(65, 90);
@@ -33,7 +34,7 @@ int main() {
         }
 
         auto t1 = steady_clock::now();
-        string temp = lcs(fixedString, randomString);
+        temp = lcs(fixedString, randomString);
         auto t2 = steady_clock::now();
 
         time1 = duration<double>(t2 - t1).count();
@@ -46,12 +47,11 @@ int main() {
 
         cout << "Time for lcs, N = " << n << endl;
         cout << "Time:" << time1 << endl;
-        cout << "-------------------------------------" << endl;
 
         cout << "Time for lcs_full_search, N = " << n << endl;
         cout << "Time:" << time2 << endl;
         cout << "-------------------------------------" << endl;
-        n += size_multiplicator;
+        n += size;
     }
     return result;
 }
