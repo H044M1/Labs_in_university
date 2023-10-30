@@ -1,0 +1,43 @@
+Sub diag()
+'
+Dim x1, x2, y1, y2 As Double
+    Dim step_x, step_y As Double
+    Dim Chart_name As String
+    Dim i, j As Integer
+    
+    x1 = InputBox("Input x start:")
+    x2 = InputBox("Input x end:")
+    y1 = InputBox("Input y start:")
+    y2 = InputBox("Input y end:")
+    h_x = InputBox("Input step of x:")
+    h_y = InputBox("Input step of y:")
+    Chart_name = InputBox("Input name:")
+    
+    For i = 1 To ((x2 - x1) / h_x) + 1
+        Cells(i + 1, 1).Value = x1 + (i - 1) * h_x
+    Next i
+    
+    For j = 1 To ((y2 - y1) / h_y) + 1
+            Cells(1, j + 1).Value = y1 + (j - 1) * h_y
+    Next j
+        
+    For i = 1 To ((x2 - x1) / h_x) + 1
+        For j = 1 To ((y2 - y1) / h_y) + 1
+            Cells(i + 1, j + 1).Value = LnXY(x1 + (i) * h_x, y1 + (j) * h_y)
+        Next j
+    Next i
+    
+    Range(Cells(1, 1), Cells(((x2 - x1) / h_x) + 2, ((y2 - y1) / h_y) + 2)).Select
+    ActiveSheet.Shapes.AddChart2(227, xlSurface).Select
+    With ActiveChart
+        .SetSourceData Source:=Range(Cells(1, 1), Cells(((x2 - x1) / h_x) + 2, ((y2 - y1) / h_y) + 2))
+        .HasTitle = True
+        .ChartTitle.Text = Chart_name
+        .HasLegend = True
+    End With
+'
+End Sub
+
+Function LnXY(ByVal x As Double, ByVal y As Double) As Double
+    LnXY = Log(x + y)
+End Function
