@@ -29,17 +29,6 @@ Graph random_graph(int size) {
             graph.add_edge(i, j, distribution_distance(generator) / 10.0);
         }
     }
-
-    int additional_edges = random_number(size);
-
-    for (int i = 0; i < additional_edges; ++i) {
-        int vertex_1 = std::uniform_int_distribution<int>(0, size - 1)(generator);
-        int vertex_2 = std::uniform_int_distribution<int>(0, size - 1)(generator);
-        if (vertex_1 != vertex_2 && graph.has_edge(vertex_1, vertex_2)) {
-            graph.remove_edge(vertex_1, vertex_2);
-        }
-    }
-
     return graph;
 }
 

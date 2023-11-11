@@ -15,6 +15,10 @@ vector<int> TSP(const Graph& graph) {
     vector<int> bestPath;
     double minCost = numeric_limits<double>::max();
 
+    if(vertices.size() == 0){
+        return vector<int> {} ;
+    }
+
     do {
         double currentCost = 0.0;
         bool validPath = true;
